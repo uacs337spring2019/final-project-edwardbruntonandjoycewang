@@ -1,0 +1,65 @@
+<!--Edward Brunton-->
+<!--CSC 337 001-->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Credit Picker</title>
+        <meta charset="utf-8" />
+        <link href="creditpicker.css" type="text/css" rel="stylesheet" />
+        <script src="creditpicker.js"></script>
+        <link rel="icon" href="favicon.png" type="image/gif">
+    </head>
+
+    <body>
+        <div id="loginDiv">
+            <form>
+                <fieldset id="existingAccountFieldSet">
+                    <legend>Login</legend>
+                    <div class="formGroup">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail">
+                    </div>
+                    <div class="formGroup">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword">
+                    </div>
+                    <input type="button" id="login" value="Login">
+                    <input type="button" id="newAccount" 
+                    value="Create New Account">
+                </fieldset>
+            </form>
+            <form>
+                <fieldset id="newAccountFieldSet">
+                    <legend>Create New Account</legend>
+                    <div class="formGroup">
+                        <label>Full Name</label>
+                        <input type="text" id="fullNameAccount">
+                    </div>
+                    <div class="formGroup">
+                        <label>Email</label>
+                        <input type="email" id="emailAccount">
+                    </div>
+                    <div class="formGroup">
+                        <label>Password</label>
+                        <input type="password" id="passwordAccount">
+                    </div>
+                    <div class="formGroup">
+                        <label>Confirm Password</label>
+                        <input type="password" id="confirmPasswordAccount">
+                    </div>
+                    <input type="button" id="createNewAccount"
+                        value="Create New Account">
+                    <input type="button" id="existingAccount"
+                        value="I already have an account: login">
+                </fieldset>
+            </form>
+        </div>
+        <div id="monthlySpendCategories">
+        </div>
+        <div id="currentCards"></div>
+        <div id="recommendedCards"></div>
+        <div id="error"></div>
+    </body>
+
+</html>

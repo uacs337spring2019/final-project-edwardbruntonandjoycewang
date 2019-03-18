@@ -1,0 +1,26 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+input[type=button]{
+    background-color: #4CAF50;
+    color: white;
+}
+input{
+    padding: 1em;
+    margin: 1em;
+}
+#loginDiv{
+    max-width: 30em;
+    margin-left: auto;
+    margin-right: auto;
+}
+.formGroup{
+    display: flex;
+    justify-content: space-between;
+}
+form{
+    background-color: #e7e7e7;
+}
+#createNewAccount, #login{
+    float: right;
+}
