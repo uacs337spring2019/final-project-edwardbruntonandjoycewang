@@ -65,8 +65,41 @@ app.post('/register', jsonParser, function (req, res, next) {
 }catch(e){
     return returnError(res, 500, "Could not encrypt password");
 } 
+});
+/* Register a new user */
+app.post('/login', jsonParser, function (req, res, next) {
+    // Create a hash for the submitted password
+    console.log("Register request received");
+    console.log(req.body);
+    const email = req.body.email;
+    let users = getUsers();
+    const password = req.body.password;
+    console.log("parsed body");
+    if(!users.hasOwnProperty(email)){
+        console.log("user does not exist");
+        return returnError(res, 403, "Bad login credentials");
+    }
+    if(password === undefined || email === undefined){
+        console.log("missing part of body");
+        return returnError(res, 406, "Missing required field");
+    }
+    console.log("beginning bcrypt");
+    try{
         
-  //  });
+    bcrypt.compare(password, users[email].password, function(err, valid){
+        if(err){
+    return returnError(res, 500, "Bcrypt comparison issue");
+        }if(valid){
+            console.log("Valid password");
+            res.sendStatus(200);
+        }else{
+            console.log("bad password");
+            return returnError(res, 403, "Bad login credentials");
+        }
+    })  
+    }catch(e){
+        return returnError(res, 500, "Bcrypt comparison issue");
+    } 
 });
 function getUsers(){
     let lines = readFile("users.txt");

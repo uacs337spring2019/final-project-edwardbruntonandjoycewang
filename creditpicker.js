@@ -8,6 +8,10 @@ CSC 337 001
      * Enables the click buttons after the html loads
      */
     window.onload = function () {
+        document.querySelector("#success button").onclick = function(){
+            document.getElementById("success").style.display = 'none';
+            switchToExistingAccount();
+        }
         document.getElementById("login").onclick = login;
         document.getElementById("createNewAccount").onclick = newAccount;
         document.getElementById("newAccount").onclick = switchToNewAccount;
@@ -16,22 +20,63 @@ CSC 337 001
         console.log("loaded");
     };
     function switchToNewAccount() {
+        clearError();
         console.log("Switch to new account");
         document.getElementById("existingAccountFieldSet").style.display = 'none';
         document.getElementById("newAccountFieldSet").style.display = 'block';
     }
     function switchToExistingAccount() {
+        clearError();
         console.log("Switch to existing account");
         document.getElementById("existingAccountFieldSet").style.display = 'block';
         document.getElementById("newAccountFieldSet").style.display = 'none';
     }
     function login() {
-
+        let password = document.getElementById("loginPassword").value;
+        let email = document.getElementById("loginEmail").value;
+        let validItems = true;
+        if (password.length < 8) {
+            addError("Password must be at least 8 characters long");
+            validItems = false;
+        }
+        if (!
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)) {
+            addError("Email must have proper form");
+            validItems = false;
+        }
+        if (validItems) {
+            let url = "http://localhost:3000/login";
+            const message = {
+                "email": email,
+                "password": password
+            };
+            const fetchOptions = {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify(message)
+            };
+            fetch(url, fetchOptions)
+                .then(checkStatus)
+                .then(function (responseText) {
+                    loadFunction();
+                })
+                .catch(function (response){
+                    addError("Detailed trace error:");
+                    addError(response);
+                });
+        }
         console.log("Login button click");
     }
     function clearError() {
         console.log("clearing error");
         document.getElementById("error").innerHTML = "";
+    }
+    function emptyError(){
+        console.log(document.getElementById("error").innerHTML);
+        if(document.getElementById("error").innerHTML === ""){
+            return true;
+        }
+        return false;
     }
     function addError(error) {
         console.log("creating error");
@@ -95,7 +140,12 @@ CSC 337 001
             fetch(url, fetchOptions)
                 .then(checkStatus)
                 .then(function (responseText) {
-                    loadFunction();
+                    if(emptyError()){
+                        console.log("no error");
+                        document.getElementById("success").style.display = "block";
+                    }else{
+                        console.log("existing errors");
+                    }
                 })
                 .catch(function (response){
                     addError("Detailed trace error:");

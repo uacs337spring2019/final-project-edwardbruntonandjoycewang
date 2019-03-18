@@ -1,7 +1,7 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
 }
-input[type=button]{
+input[type=button], button{
     background-color: #4CAF50;
     color: white;
 }
@@ -9,7 +9,7 @@ input{
     padding: 1em;
     margin: 1em;
 }
-#loginDiv{
+#loginDiv, #success{
     max-width: 30em;
     margin-left: auto;
     margin-right: auto;
@@ -23,4 +23,9 @@ form{
 }
 #createNewAccount, #login{
     float: right;
+}
+#success
+{
+    min-height: 2em;
+    display: none;
 }
