@@ -30,12 +30,17 @@ CSC 337 001
         console.log("Login button click");
     }
     function clearError() {
+        console.log("clearing error");
         document.getElementById("error").innerHTML = "";
     }
     function addError(error) {
+        console.log("creating error");
         let errorDiv = document.createElement("div");
         errorDiv.innerHTML = error;
+        console.log("error:");
+        console.log(error);
         document.getElementById("error").appendChild(errorDiv);
+        console.log("error div created");
     }
     function newAccount() {
         clearError();
@@ -78,9 +83,9 @@ CSC 337 001
         if (validItems) {
             let url = "http://localhost:3000/register";
             const message = {
-                email: email,
-                fillName: name,
-                password: password
+                "email": email,
+                "fullName": name,
+                "password": password
             };
             const fetchOptions = {
                 method: 'POST',
@@ -92,9 +97,9 @@ CSC 337 001
                 .then(function (responseText) {
                     loadFunction();
                 })
-                .catch(function (responseText){
-                    clearError();
-                    addError(response.statusText);
+                .catch(function (response){
+                    addError("Detailed trace error:");
+                    addError(response);
                 });
         }
     }
@@ -106,12 +111,17 @@ CSC 337 001
     function checkStatus(response) {
         const lowEndValid = 200;
         const highEndValid = 300;
+        console.log(response.status);
+        console.log(response);
         if (response.status >= lowEndValid && response.status < highEndValid) {
             return response.text();
         }
         else {
+            console.log("unacceptable return");
             clearError();
+            console.log("error cleared");
             addError(response.statusText);
+            console.log("error added to gui");
         }
     }
 })();
