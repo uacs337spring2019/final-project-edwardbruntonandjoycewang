@@ -36,35 +36,35 @@ app.post('/register', jsonParser, function (req, res, next) {
     const name = req.body.fullName;
     const password = req.body.password;
     console.log("parsed body");
-    if(users.hasOwnProperty(email)){
+    if (users.hasOwnProperty(email)) {
         console.log("user already exists");
         return returnError(res, 409, "User already exists");
     }
-    if(name === undefined || password === undefined || email === undefined){
+    if (name === undefined || password === undefined || email === undefined) {
         console.log("missing part of body");
         return returnError(res, 406, "Missing required field");
     }
     //TODO fill this in
-   // bcrypt.hash(password, "someSalt?", null, function (err, hash) {
-        // Prepare a new user
+    // bcrypt.hash(password, "someSalt?", null, function (err, hash) {
+    // Prepare a new user
     console.log("beginning bcrypt");
-    try{
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(password, salt, function(err, hash) {
-            console.log("Password successfully hashed");
-            try{
-                fs.appendFileSync("users.txt",  "\n" + name + ":::" + hash + ":::" + email);
-                console.log("created successfully");
-                res.sendStatus(201);
-                return;
-            }catch{
-               return returnError(res, 500, "Could not write file");
-            }
+    try {
+        bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(password, salt, function (err, hash) {
+                console.log("Password successfully hashed");
+                try {
+                    fs.appendFileSync("users.txt", "\n" + name + ":::" + hash + ":::" + email);
+                    console.log("created successfully");
+                    res.sendStatus(201);
+                    return;
+                } catch{
+                    return returnError(res, 500, "Could not write file");
+                }
+            });
         });
-    });   
-}catch(e){
-    return returnError(res, 500, "Could not encrypt password");
-} 
+    } catch (e) {
+        return returnError(res, 500, "Could not encrypt password");
+    }
 });
 /* Register a new user */
 app.post('/login', jsonParser, function (req, res, next) {
@@ -75,36 +75,36 @@ app.post('/login', jsonParser, function (req, res, next) {
     let users = getUsers();
     const password = req.body.password;
     console.log("parsed body");
-    if(!users.hasOwnProperty(email)){
+    if (!users.hasOwnProperty(email)) {
         console.log("user does not exist");
         return returnError(res, 403, "Bad login credentials");
     }
-    if(password === undefined || email === undefined){
+    if (password === undefined || email === undefined) {
         console.log("missing part of body");
         return returnError(res, 406, "Missing required field");
     }
     console.log("beginning bcrypt");
-    try{
-        
-    bcrypt.compare(password, users[email].password, function(err, valid){
-        if(err){
-    return returnError(res, 500, "Bcrypt comparison issue");
-        }if(valid){
-            console.log("Valid password");
-            res.sendStatus(200);
-        }else{
-            console.log("bad password");
-            return returnError(res, 403, "Bad login credentials");
-        }
-    })  
-    }catch(e){
+    try {
+
+        bcrypt.compare(password, users[email].password, function (err, valid) {
+            if (err) {
+                return returnError(res, 500, "Bcrypt comparison issue");
+            } if (valid) {
+                console.log("Valid password");
+                res.sendStatus(200);
+            } else {
+                console.log("bad password");
+                return returnError(res, 403, "Bad login credentials");
+            }
+        })
+    } catch (e) {
         return returnError(res, 500, "Bcrypt comparison issue");
-    } 
+    }
 });
-function getUsers(){
+function getUsers() {
     let lines = readFile("users.txt");
     console.log(lines);
-    if(lines === 0){
+    if (lines === 0) {
         console.log("bad file");
         return {};
     }
@@ -113,13 +113,13 @@ function getUsers(){
     for (let i = 0; i < linesInList.length; i++) {
         let parts = linesInList[i].split(":::");
         console.log(parts);
-        users[parts[2]] = 
+        users[parts[2]] =
             {
                 "name": parts[0],
                 "email": parts[2],
                 "password": parts[1]
             };
-      //  console.log(users);
+        //  console.log(users);
     }
     console.log("finished creating users");
     return users;
@@ -141,20 +141,20 @@ function readFile(fileName) {
 //TODO gut and rewrite
 app.post('/', jsonParser, function (req, res) {
     console.log("posting");
-  //  console.log(req);
+    //  console.log(req);
     const name = req.body.name;
     const comment = req.body.comment;
     console.log(name);
     console.log(comment);
-    if(name.indexOf(":::") != -1 || comment.indexOf(":::") != -1
-    ||name.indexOf("\n") != -1 || comment.indexOf("\n") != -1){
+    if (name.indexOf(":::") != -1 || comment.indexOf(":::") != -1
+        || name.indexOf("\n") != -1 || comment.indexOf("\n") != -1) {
         console.log("invalid name or comment");
         res.sendStatus(400);
         return;
     }
-    try{
-        fs.appendFileSync("messages.txt",  "\n" + name + ":::" + comment);
-    }catch{
+    try {
+        fs.appendFileSync("messages.txt", "\n" + name + ":::" + comment);
+    } catch{
         console.log("could not write file");
         res.sendStatus(500);
         return;

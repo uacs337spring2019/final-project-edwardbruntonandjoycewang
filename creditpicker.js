@@ -8,7 +8,7 @@ CSC 337 001
      * Enables the click buttons after the html loads
      */
     window.onload = function () {
-        document.querySelector("#success button").onclick = function(){
+        document.querySelector("#success button").onclick = function () {
             document.getElementById("success").style.display = 'none';
             switchToExistingAccount();
         }
@@ -60,7 +60,7 @@ CSC 337 001
                 .then(function (responseText) {
                     loadFunction();
                 })
-                .catch(function (response){
+                .catch(function (response) {
                     addError("Detailed trace error:");
                     addError(response);
                 });
@@ -71,9 +71,9 @@ CSC 337 001
         console.log("clearing error");
         document.getElementById("error").innerHTML = "";
     }
-    function emptyError(){
+    function emptyError() {
         console.log(document.getElementById("error").innerHTML);
-        if(document.getElementById("error").innerHTML === ""){
+        if (document.getElementById("error").innerHTML === "") {
             return true;
         }
         return false;
@@ -140,14 +140,14 @@ CSC 337 001
             fetch(url, fetchOptions)
                 .then(checkStatus)
                 .then(function (responseText) {
-                    if(emptyError()){
+                    if (emptyError()) {
                         console.log("no error");
                         document.getElementById("success").style.display = "block";
-                    }else{
+                    } else {
                         console.log("existing errors");
                     }
                 })
-                .catch(function (response){
+                .catch(function (response) {
                     addError("Detailed trace error:");
                     addError(response);
                 });
