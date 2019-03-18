@@ -76,7 +76,7 @@ CSC 337 001
             validItems = false;
         }
         if (validItems) {
-            let url = "http://localhost:3000/";
+            let url = "http://localhost:3000/register";
             const message = {
                 email: email,
                 fillName: name,
@@ -88,6 +88,7 @@ CSC 337 001
                 body: JSON.stringify(message)
             };
             fetch(url, fetchOptions)
+                .then(checkStatus)
                 .then(function (responseText) {
                     loadFunction();
                 })
@@ -95,6 +96,22 @@ CSC 337 001
                     clearError();
                     addError(response.statusText);
                 });
+        }
+    }
+    /**
+     *Checks the status of a response and returns the text or the error code
+     *Parameters:
+        *Response: server response that contains status and text
+     */
+    function checkStatus(response) {
+        const lowEndValid = 200;
+        const highEndValid = 300;
+        if (response.status >= lowEndValid && response.status < highEndValid) {
+            return response.text();
+        }
+        else {
+            clearError();
+            addError(response.statusText);
         }
     }
 })();

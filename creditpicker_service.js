@@ -30,13 +30,14 @@ app.get('/', function (req, res) {
 app.post('/register', function (req, res, next) {
     // Create a hash for the submitted password
     console.log("Register request received");
-    
+    //TODO fill this in
     bcrypt.hash(req.body.password, null, null, function (err, hash) {
         // Prepare a new user
         console.log("Password successfully hashed");
         
     });
 });
+//TODO gut and rewrite
 app.post('/', jsonParser, function (req, res) {
     console.log("posting");
   //  console.log(req);
