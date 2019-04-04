@@ -1,5 +1,6 @@
 /*
 Edward Brunton
+Joyce Wang
 CSC 337 001
 */
 "use strict";
