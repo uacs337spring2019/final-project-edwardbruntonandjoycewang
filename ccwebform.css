@@ -1,0 +1,20 @@
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  list-style: none;
+}
+
+body {
+  font-family:  "Book Antiqua", serif;
+}
+
+h1, h2{
+  font-family: "Palatino Linotype", "Book Antiqua", serif;
+}
+
+input {
+  text-align: center;
+}
