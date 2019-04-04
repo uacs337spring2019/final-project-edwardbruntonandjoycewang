@@ -4,103 +4,109 @@
 
   <head>
     <title>CompostCats</title>
+    <link href="compostCats.css" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="ccwebform.css">
     <script type="text/javascript" src="compost.js"></script>
-    <img src="cclogo.png" alt="cclogo" />
- </head>
+  </head>
 
- <body>
-   <hr>
-   <h1>Farm Shift Log</h1>
-
-     Date: <input id="date" type="date">
-     <br><br>
-     Name: <input id="name" type="text">
-     <br><br>
-
-     <!-- windrow attributes indicated with W
+  <body>
+    <header>
+      <img src="cclogo.png" alt="compost cats logo" />
+      <hr>
+    </header>
+    <div class="formSection">
+      <h1>Farm Shift Log</h1>
+      <div><label>Date:</label> <input id="date" type="date"></div>
+      <div><label>Name:</label><input id="name" type="text"></div>
+    </div>
+    <!-- windrow attributes indicated with W
       FIXME: Add another windrow button should add another set of windrow form fields-->
-     <h2>Windrows</h2>
-      <ul>
-        <li><input id="nameW" type="text" placeholder="Windrow Number/"><br><br></li>
-        <li>Started today?<input type="checkbox" id="startW"><br></li>
-        <li>Finished today?<input type="checkbox" id="finishW"><br></li>
-        <br>
-        <li>Turned?<input type="checkbox" id="turnW"><br></li>
-        <li>Watered?<input type="checkbox" id="waterW"><br></li>
-        <li>Decontaminated?<input type="checkbox" id="decontamW"><br></li>
-        <br>
-        <li>Manure Added:<input id="manure" type="text" placeholder="Volume in cubic yards">
-            Food Waste Added:<input id="food" type="text" placeholder="Volume in cubic yards">
-            Overs Added:<input id="overs" type="text" placeholder="Volume in cubic yards">
-            Chipped Material Added:<input id="chipped" type="text" placeholder="Volume in cubic yards">
-            <br><br>
-        </li>
-        <br>
-        <li>Temp North:<input id="tempN" type="text">
-            Temp Middle:<input id="tempM" type="text">
-            Temp South:<input id="tempS" type="text">
-        </li>
-      </ul>
-      <button id="addW">Add another windrow</button>
-      <br><br>
-
+    <h2>Windrows</h2>
+    <div class="windrowForm">
+      <div class="formSection">
+        <input id="nameW" type="text" placeholder="Windrow Number">
+        <div><label>Started today?</label><input type="checkbox" id="startW"></div>
+        <div><label>Finished today?</label><input type="checkbox" id="finishW"></div>
+      </div>
+      <div class="formSection">
+        <div><label>Turned?</label><input type="checkbox" id="turnW"></div>
+        <div><label>Watered?</label><input type="checkbox" id="waterW"></div>
+        <div><label>Decontaminated?</label><input type="checkbox"
+            id="decontaminateW"></div>
+      </div>
+      <div class="formSection">
+        <div><label>Manure Added:</label><input id="manure" type="text"
+            placeholder="Volume in cubic yards"></div>
+        <div><label>Food Waste Added:</label><input id="food" type="text"
+            placeholder="Volume in cubic yards"></div>
+        <div><label>Overs Added:</label><input id="overs" type="text"
+            placeholder="Volume in cubic yards"></div>
+        <div><label>Chipped Material Added:</label><input id="chipped"
+            type="text" placeholder="Volume in cubic yards"></div>
+      </div>
+      <div class="formSection">
+        <div><label>Temp Middle:</label><input id="tempM" type="text"></div>
+        <div><label>Temp South:</label><input id="tempS" type="text"></div>
+      </div>
+    </div>
+    <button id="addW">Add another windrow</button>
+    <div class="curingPiles">
       <h2>Curing Piles</h2>
-        <ul>
-          <li><input id="nameCP" type="text" placeholder="Curing Pile Number"><br><br></li>
-          <br>
-          <li>Started today?<input type="checkbox" id="startC"><br></li>
-          <li>Finished today?<input type="checkbox" id="finishC"><br></li>
+      <div class="formSection">
+        <input id="nameCP" type="text" placeholder="Curing Pile Number">
+        <div><label>Started today?</label><input type="checkbox" id="startC"></div>
+        <div><label>Finished today?</label><input type="checkbox" id="finishC"></div>
+        <div><label>Amount Added:</label><input id="addC" type="text"
+            placeholder="Volume in cubic yards"></div>
+        <div><label>Amount Sifted:</label><input id="subtractC" type="text"
+            placeholder="Volume in cubic yards"></div>
+      </div>
+    </div>
+    <button id="addCP">Add another curing pile</button>
+    <h2>Overs</h2>
+    <div><label>Amount Added:</label><input id="addO" type="text"
+        placeholder="Volume in cubic yards"></div>
+    <div><label>Amount Used (for purposes other than windrow additions):</label><input
+        id="subtractO" type="text" placeholder="Volume in cubic yards"></div>
+    <h2>Finished Compost</h2>
+    <div><label>Amount Added:</label><input id="addBulk" type="text"
+        placeholder="Volume in cubic yards"></div>
+    <div><label>Amount Sold as Bulk Compost:</label><input id="bulkSold"
+        type="text" placeholder="Volume in cubic yards"></div>
+    <h2>Compost Bagged</h2>
+    <div><label>Bags Made:</label><input id="bagsC" type="text"></div>
+    <div><label>Pallets Made:</label><input id="palletsC" type="text"></div>
+    <h2>Food Dumps</h2>
+    <div class="formSection">
+      <div><label>Source:</label><input id="sourceD" type="text"></div>
+      <div><label>Weight:</label></div>
+      <input id="weightD" type="text">
+      <div><label>Contamination level (1 = no contamination, 5 = heavily
+          contaminated)</label></div>
+      <select id="contaminateLevel">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <div><label>Decontaminated?</label><input type="checkbox"
+          id="dContaminate"></div>
+    </div>
+    <button id="addD">Add another dump</button>
 
-          <li>Amount Added:<input id="addC" type="text" placeholder="Volume in cubic yards"><br></li>
-          <li>Amount Sifted:<input id="subtractC" type="text" placeholder="Volume in cubic yards"><br></li>
-        </ul>
-        <button id="addCP">Add another curing pile</button>
-        <br><br>
+    <h2>Equipment Used (Hours)</h2>
+    <div class="formSection">
+      <div><label>Challenger:</label><input id="challenger" type="text"></div>
+      <div><label>Big Loader:</label><input id="bigLoader" type="text"></div>
+      <div><label>Backhoe:</label><input id="backhoe" type="text"></div>
+      <div><label>Water Truck:</label><input id="waterTruck" type="text"></div>
+      <div><label>Sifter:</label><input id="sifter" type="text"></div>
+      <div><label>Turner:</label><input id="turner" type="text"></div>
+    </div>
+    <h2>Comments or Concerns?</h2>
+    <input id="comments" type="text">
 
-      <h2>Overs</h2>
-        Amount Added:<input id="addO" type="text" placeholder="Volume in cubic yards"><br>
-        Amount Used (for purposes other than windrow additions):<input id="subtractO" type="text" placeholder="Volume in cubic yards"><br>
-
-      <h2>Finished Compost</h2>
-        Amount Added:<input id="addBulk" type="text" placeholder="Volume in cubic yards"><br>
-        Amount Sold as Bulk Compost:<input id="bulkSold" type="text" placeholder="Volume in cubic yards"><br>
-
-      <h2>Compost Bagged</h2>
-        Bags Made:<input id="bagsC" type="text"><br>
-        Pallets Made:<input id="palletsC" type="text"><br>
-
-      <h2>Food Dumps</h2>
-        <ul>
-          <li>Source:<input id="sourceD" type="text"><br></li>
-          <li>Weight:<input id="weightD" type="text"><br></li>
-          <li>Contamination level (1 = no contamination, 5 = heavily contaminated)
-            <select id="contamLevel">
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select><br>
-          </li>
-          <li>Decontaminated?<input type="checkbox" id="dcontam"><br><br></li>
-        </ul>
-        <button id="addD">Add another dump</button>
-        <br><br>
-
-        <h2>Equipment Used (Hours)</h2>
-         Challenger:<input id="challenger" type="text"><br>
-         Big Loader:<input id="bloader" type="text"><br>
-         Backhoe:<input id="backhoe" type="text"><br>
-         Water Truck:<input id="watertruck" type="text"><br>
-         Sifter:<input id="sifter" type="text"><br>
-         Turner:<input id="turner" type="text"><br>
-
-        <h2>Comments or Concerns?</h2>
-         <input id="comments" type="text"><br><br>
-
-        <button>Submit</button>
-      </form>
-
-    </body>
-  </html>
+    <button>Submit</button>
+  </body>
+</html>

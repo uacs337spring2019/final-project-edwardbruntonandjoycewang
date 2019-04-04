@@ -144,7 +144,9 @@ app.post('/', jsonParser, function (req, res) {
     console.log("posting");
     //  console.log(req);
     const name = req.body.name;
-    const comment = req.body.comment;
+    const weight = req.body.weight;
+    const contamination = req.body.contamination;
+    const type = req.body.type;// F (food), M (manure), B(brush)"		
     console.log(name);
     console.log(comment);
     if (name.indexOf(":::") != -1 || comment.indexOf(":::") != -1

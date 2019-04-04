@@ -18,3 +18,14 @@ h1, h2{
 input {
   text-align: center;
 }
+
+.formSection{
+  display: flex;
+ /* flex-direction: column;
+  align-items: flex-start;*/
+  flex-wrap: wrap;
+}
+.singleLine{
+  display: flex;
+  
+}
