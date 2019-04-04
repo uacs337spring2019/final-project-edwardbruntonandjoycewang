@@ -140,6 +140,52 @@ function readFile(fileName) {
     return fileLines;
 }
 //TODO gut and rewrite
+app.post('/windrow', jsonParser, function (req, res) {
+    console.log("posting");
+    //  console.log(req);
+    const start = req.body.startW;
+    const end = req.body.finishW;
+    const turnW = req.body.turnW;
+    const waterW = req.body.waterW;
+    const decontaminateW = req.body.decontaminateW;
+    const manure = req.body.manure;
+    const food = req.body.food;
+    const overs = req.body.overs;
+    const chipped = req.body.chipped;
+    const tempM = req.body.tempM;
+    const tempS = req.body.tempS;
+    const type = req.body.type;// F (food), M (manure), B(brush)"		
+    console.log(start);
+    console.log(end);
+    console.log(turnW);
+    console.log(waterW);
+    console.log(decontaminateW);
+    console.log(manure);
+    console.log(food);
+    console.log(overs);
+    console.log(chipped);
+    console.log(tempM);
+    console.log(tempS);
+    console.log(type);
+    if (start == undefined || end == undefined ||
+        turnW == undefined || waterW == undefined ||
+        decontaminateW == undefined || manure == undefined ||
+        food == undefined || overs == undefined ||
+        chipped == undefined || tempM == undefined ||
+        tempS == undefined || type == undefined) {
+        return returnError(res, 400, "Incomplete windrow post");
+    }
+    
+    try {
+        fs.appendFileSync("messages.txt", "\n" + name + ":::" + comment);
+    } catch{
+        console.log("could not write file");
+        res.sendStatus(500);
+        return;
+    }
+    console.log("Write success");
+    res.sendStatus(200);
+});
 app.post('/', jsonParser, function (req, res) {
     console.log("posting");
     //  console.log(req);
