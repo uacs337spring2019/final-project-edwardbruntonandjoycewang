@@ -6,7 +6,7 @@ CSC 337 001
 "use strict";
 const express = require("express");
 const app = express();
-const expressPort = 3000;
+const expressPort = 3000;//to work on horoku, change to: process.env.PORT
 let fs = require('fs');
 let mysql = require('mysql');
 const bodyParser = require('body-parser');

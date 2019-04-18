@@ -59,7 +59,8 @@ CSC 337 001
             fetch(url, fetchOptions)
                 .then(checkStatus)
                 .then(function (responseText) {
-                    loadFunction();
+                    console.log("Good login");
+                    window.location.href = "ccwebform.html";
                 })
                 .catch(function (response) {
                     addError("Detailed trace error:");
@@ -127,7 +128,7 @@ CSC 337 001
             validItems = false;
         }
         if (validItems) {
-            let url = "http://localhost:3000/register";
+            let url = "http://localhost:3000/register";// need to change 3000 to process.env.PORT
             const message = {
                 "email": email,
                 "fullName": name,
