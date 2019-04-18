@@ -139,7 +139,13 @@ function readFile(fileName) {
     }
     return fileLines;
 }
-//TODO gut and rewrite
+function removeAndGetRecord(start, name){
+    lines = readFile('/dataFiles/windrow.csv');
+    for(let i = 0; i<lines.length; i++){
+        lines[i] = lines[i].split(",");
+    }
+    
+}
 app.post('/windrow', jsonParser, function (req, res) {
     console.log("posting");
     //  console.log(req);
@@ -167,15 +173,20 @@ app.post('/windrow', jsonParser, function (req, res) {
     console.log(tempM);
     console.log(tempS);
     console.log(type);
-    if (start == undefined || end == undefined ||
-        turnW == undefined || waterW == undefined ||
-        decontaminateW == undefined || manure == undefined ||
-        food == undefined || overs == undefined ||
-        chipped == undefined || tempM == undefined ||
-        tempS == undefined || type == undefined) {
+    if (start === undefined || end === undefined ||
+        turnW === undefined || waterW === undefined ||
+        decontaminateW === undefined || manure === undefined ||
+        food === undefined || overs === undefined ||
+        chipped === undefined || tempM === undefined ||
+        tempS === undefined || type === undefined) {
         return returnError(res, 400, "Incomplete windrow post");
     }
-    
+    if (start == false && end == false){
+        return returnError(res, 400, "Either start or end must be today");
+    }
+    if (start === false){
+        //TODO find current record
+    }
     try {
         fs.appendFileSync("messages.txt", "\n" + name + ":::" + comment);
     } catch{
