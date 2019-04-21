@@ -14,6 +14,7 @@ CSC 337 001
     }
     function submitWindrow(){
         clearError();
+        console.log(document.getElementById("date").value);
         let windrowNumber = document.getElementById("nameW").value;
         let startedToday = document.getElementById("startW").checked;
         let finishedToday = document.getElementById("finishW").checked;
@@ -48,7 +49,8 @@ CSC 337 001
             addError("Temperature South must be a valid number");
         }
         if(document.getElementById("error").innerHTML == ""){
-            let url = "http://localhost:3000/windrow";// need to change 3000 to process.env.PORT
+            let url =  "http://localhost:3000/windrow"; 
+            //"http://localhost:3000/windrow";// need to change 3000 to process.env.PORT
             const message = {
                 "windrowNumber": windrowNumber,
                 "startW": startedToday,
@@ -72,8 +74,20 @@ CSC 337 001
                 .then(checkStatus)
                 .then(function (responseText) {
                     if (emptyError()) {
-                        console.log("no error");
-                        document.getElementById("success").style.display = "block";
+                        console.log("successful post");
+                        document.getElementById("nameW").value = "";
+                        document.getElementById("startW").checked = false;
+                        document.getElementById("finishW").checked = false;
+                        document.getElementById("turnW").checked = false;
+                        document.getElementById("waterW").checked = false;
+                        document.getElementById("decontaminateW").checked = false;
+                        document.getElementById("manure").value = "";
+                        document.getElementById("food").value = "";
+                        document.getElementById("overs").value = "";
+                        document.getElementById("chipped").value = "";
+                        document.getElementById("tempM").value = "";
+                        document.getElementById("tempS").value = "";
+                        addError("Successful submission!");
                     } else {
                         console.log("existing errors");
                     }
@@ -83,6 +97,13 @@ CSC 337 001
                     addError(response);
                 });
         }
+    }
+    function emptyError() {
+        console.log(document.getElementById("error").innerHTML);
+        if (document.getElementById("error").innerHTML === "") {
+            return true;
+        }
+        return false;
     }
     function addError(error) {
         console.log("creating error");
@@ -113,6 +134,7 @@ CSC 337 001
         else {
             console.log("unacceptable return");
             clearError();
+            console.log(response);
             console.log("error cleared");
             addError(response.statusText);
             console.log("error added to gui");

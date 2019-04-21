@@ -129,7 +129,8 @@ CSC 337 001
         }
         if (validItems) {
             let url = "http://localhost:3000/register";// need to change 3000 to process.env.PORT
-            const message = {
+       // let url = "/register";// need to change 3000 to process.env.PORT
+        const message = {
                 "email": email,
                 "fullName": name,
                 "password": password

@@ -8,7 +8,6 @@ const express = require("express");
 const app = express();
 const expressPort = 3000;//to work on horoku, change to: process.env.PORT
 let fs = require('fs');
-let mysql = require('mysql');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const bcrypt = require("bcrypt");
@@ -92,7 +91,7 @@ app.post('/login', jsonParser, function (req, res, next) {
                 return returnError(res, 500, "Bcrypt comparison issue");
             } if (valid) {
                 console.log("Valid password");
-                res.sendStatus(200);
+                res.send(200);
             } else {
                 console.log("bad password");
                 return returnError(res, 403, "Bad login credentials");
@@ -139,13 +138,6 @@ function readFile(fileName) {
     }
     return fileLines;
 }
-function removeAndGetRecord(start, name){
-    lines = readFile('/dataFiles/windrow.csv');
-    for(let i = 0; i<lines.length; i++){
-        lines[i] = lines[i].split(",");
-    }
-    
-}
 app.post('/windrow', jsonParser, function (req, res) {
     console.log("posting");
     //  console.log(req);
@@ -186,36 +178,14 @@ app.post('/windrow', jsonParser, function (req, res) {
     if (start == false && end == false){
         return returnError(res, 400, "Either start or end must be today");
     }
-    if (start === false){
+   /* if (start === false){
         //TODO find current record
-    }
+    }*/
+    let record = windrowNumber + "," +  start + "," + end + "," + turnW + "," + 
+    waterW + "," + decontaminateW + "," + manure + "," + food + "," + 
+    overs + "," + chipped + "," + tempM + "," + tempS + ",";
     try {
-        fs.appendFileSync("messages.txt", "\n" + name + ":::" + comment);
-    } catch{
-        console.log("could not write file");
-        res.sendStatus(500);
-        return;
-    }
-    console.log("Write success");
-    res.sendStatus(200);
-});
-app.post('/', jsonParser, function (req, res) {
-    console.log("posting");
-    //  console.log(req);
-    const name = req.body.name;
-    const weight = req.body.weight;
-    const contamination = req.body.contamination;
-    const type = req.body.type;// F (food), M (manure), B(brush)"		
-    console.log(name);
-    console.log(comment);
-    if (name.indexOf(":::") != -1 || comment.indexOf(":::") != -1
-        || name.indexOf("\n") != -1 || comment.indexOf("\n") != -1) {
-        console.log("invalid name or comment");
-        res.sendStatus(400);
-        return;
-    }
-    try {
-        fs.appendFileSync("messages.txt", "\n" + name + ":::" + comment);
+        fs.appendFileSync("dataFiles/windrow.csv", record + "\n");
     } catch{
         console.log("could not write file");
         res.sendStatus(500);
