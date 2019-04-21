@@ -46,11 +46,12 @@
             type="text" placeholder="Volume in cubic yards"></div>
       </div>
       <div class="formSection">
-        <div><label>Temperature Middle:</label><input id="tempM" type="text"></div>
+        <div><label>Temperature Middle:</label><input id="tempM" pattern="\d" type="text"></div>
         <div><label>Temperature South:</label><input id="tempS" type="text"></div>
       </div>
     </div>
     <button id="addW">Add another windrow</button>
+    <div id="error"></div>
     <!--
     <div class="curingPiles">
       <h2>Curing Piles</h2>

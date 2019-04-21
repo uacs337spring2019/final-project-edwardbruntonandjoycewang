@@ -149,6 +149,7 @@ function removeAndGetRecord(start, name){
 app.post('/windrow', jsonParser, function (req, res) {
     console.log("posting");
     //  console.log(req);
+    const windrowNumber = req.body.windrowNumber;
     const start = req.body.startW;
     const end = req.body.finishW;
     const turnW = req.body.turnW;
@@ -160,7 +161,8 @@ app.post('/windrow', jsonParser, function (req, res) {
     const chipped = req.body.chipped;
     const tempM = req.body.tempM;
     const tempS = req.body.tempS;
-    const type = req.body.type;// F (food), M (manure), B(brush)"		
+   // const type = req.body.type;// F (food), M (manure), B(brush)"	
+    console.log(windrowNumber);
     console.log(start);
     console.log(end);
     console.log(turnW);
@@ -172,13 +174,13 @@ app.post('/windrow', jsonParser, function (req, res) {
     console.log(chipped);
     console.log(tempM);
     console.log(tempS);
-    console.log(type);
+  //  console.log(type);
     if (start === undefined || end === undefined ||
         turnW === undefined || waterW === undefined ||
         decontaminateW === undefined || manure === undefined ||
         food === undefined || overs === undefined ||
         chipped === undefined || tempM === undefined ||
-        tempS === undefined || type === undefined) {
+        tempS === undefined) {
         return returnError(res, 400, "Incomplete windrow post");
     }
     if (start == false && end == false){

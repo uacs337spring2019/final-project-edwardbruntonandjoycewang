@@ -59,8 +59,8 @@ CSC 337 001
             fetch(url, fetchOptions)
                 .then(checkStatus)
                 .then(function (responseText) {
-                    console.log("Good login");
-                    window.location.href = "ccwebform.html";
+                    if(document.getElementById("error").innerHTML == "")
+                        window.location.href = "ccwebform.html";
                 })
                 .catch(function (response) {
                     addError("Detailed trace error:");
