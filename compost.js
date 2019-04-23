@@ -2,6 +2,9 @@
 Edward Brunton
 Joyce Wang
 CSC 337 001
+
+Processes the buttons for the web form, ccwebform.html. Submits windrow information
+and a POST request to windrow.csv. Processes click to display compostSummary.html
 */
 "use strict";
 (function () {
@@ -10,26 +13,55 @@ CSC 337 001
      */
     window.onload = function (){
         document.getElementById("addW").onclick = submitWindrow;
+				document.getElementById("viewAll").onclick = displayInfo;
         console.log("loaded next page");
     }
+
+		/**
+		* Displays the summary page on click.
+		*/
+		function displayInfo(){
+			window.location.href = "compostSummary.html";
+		}
+
+		/**
+		* Takes the data in the form fields and submits post request, after checking
+		for valid data types. Logs errors on the page if necessary.
+		*/
     function submitWindrow(){
         clearError();
-        console.log(document.getElementById("date").value);
+        let date = document.getElementById("date").value;
         let windrowNumber = document.getElementById("nameW").value;
         let startedToday = document.getElementById("startW").checked;
         let finishedToday = document.getElementById("finishW").checked;
-        let turnW = document.getElementById("turnW").checked;
-        let waterW = document.getElementById("waterW").checked;
-        let decontaminateW = document.getElementById("decontaminateW").checked;
+				let turnW = 0;
+				let waterW = 0;
+				let decontaminateW = 0;
+        if(document.getElementById("turnW").checked == "TRUE"){
+					console.log("out");
+					turnW = 1;
+				}
+				else {
+					turnW = 0;
+				}
+				if(document.getElementById("waterW").checked){
+					waterW = 1;
+				}
+				else {
+					waterW = 0;
+				}
+				if(document.getElementById("decontaminateW").checked){
+					decontaminateW = 1;
+				}
+				else {
+					decontaminateW = 0;
+				}
         let manure = document.getElementById("manure").value;
         let food = document.getElementById("food").value;
         let overs = document.getElementById("overs").value;
         let chipped = document.getElementById("chipped").value;
         let tempM = document.getElementById("tempM").value;
         let tempS = document.getElementById("tempS").value;
-        if(!windrowNumber.match(/\d/)){
-            addError("Windows Number must be a valid number");
-        }
         if(!manure.match(/\d/)){
             addError("Manure added must be a valid number");
         }
@@ -49,9 +81,10 @@ CSC 337 001
             addError("Temperature South must be a valid number");
         }
         if(document.getElementById("error").innerHTML == ""){
-            let url =  "http://localhost:3000/windrow"; 
+            let url =  "http://localhost:3000/windrow";
             //"http://localhost:3000/windrow";// need to change 3000 to process.env.PORT
             const message = {
+								"date": date,
                 "windrowNumber": windrowNumber,
                 "startW": startedToday,
                 "finishW": finishedToday,
@@ -88,6 +121,7 @@ CSC 337 001
                         document.getElementById("tempM").value = "";
                         document.getElementById("tempS").value = "";
                         addError("Successful submission!");
+												document.getElementById("viewAll").display = "block";
                     } else {
                         console.log("existing errors");
                     }

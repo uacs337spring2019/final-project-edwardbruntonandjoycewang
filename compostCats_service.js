@@ -2,7 +2,10 @@
 Edward Brunton
 Joyce Wang
 CSC 337 001
+
+Processes GET and POST requests to read and write to windrow.csv.
 */
+
 "use strict";
 const express = require("express");
 const app = express();
@@ -11,6 +14,7 @@ let fs = require('fs');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const bcrypt = require("bcrypt");
+
 /**
  * Allows cross origin calls
  */
@@ -23,9 +27,6 @@ app.use(function (req, res, next) {
 
 app.use(express.static('public'));
 
-app.get('/', function (req, res) {
-
-});
 /* Register a new user */
 app.post('/register', jsonParser, function (req, res, next) {
     // Create a hash for the submitted password
@@ -101,6 +102,7 @@ app.post('/login', jsonParser, function (req, res, next) {
         return returnError(res, 500, "Bcrypt comparison issue");
     }
 });
+
 function getUsers() {
     let lines = readFile("users.txt");
     console.log(lines);
@@ -138,6 +140,21 @@ function readFile(fileName) {
     }
     return fileLines;
 }
+
+
+/**
+This function adds the line to the file windrow.csv
+@param line a string to append to the file
+*/
+function appendLine(line){
+  fs.appendFile("windrow.csv", line, function(err) {
+    if(err) {
+      return console.log(err);
+    }
+    console.log("The file was saved!");
+  });
+}
+
 app.post('/windrow', jsonParser, function (req, res) {
     console.log("posting");
     //  console.log(req);
@@ -153,7 +170,9 @@ app.post('/windrow', jsonParser, function (req, res) {
     const chipped = req.body.chipped;
     const tempM = req.body.tempM;
     const tempS = req.body.tempS;
-   // const type = req.body.type;// F (food), M (manure), B(brush)"	
+    const date = req.body.date;
+   // const type = req.body.type;// F (food), M (manure), B(brush)"
+    console.log(date);
     console.log(windrowNumber);
     console.log(start);
     console.log(end);
@@ -167,7 +186,7 @@ app.post('/windrow', jsonParser, function (req, res) {
     console.log(tempM);
     console.log(tempS);
   //  console.log(type);
-    if (start === undefined || end === undefined ||
+    if (date == undefined || start === undefined || end === undefined ||
         turnW === undefined || waterW === undefined ||
         decontaminateW === undefined || manure === undefined ||
         food === undefined || overs === undefined ||
@@ -175,25 +194,65 @@ app.post('/windrow', jsonParser, function (req, res) {
         tempS === undefined) {
         return returnError(res, 400, "Incomplete windrow post");
     }
-    if (start == false && end == false){
-        return returnError(res, 400, "Either start or end must be today");
-    }
-   /* if (start === false){
-        //TODO find current record
-    }*/
-    let record = windrowNumber + "," +  start + "," + end + "," + turnW + "," + 
-    waterW + "," + decontaminateW + "," + manure + "," + food + "," + 
-    overs + "," + chipped + "," + tempM + "," + tempS + ",";
     try {
-        fs.appendFileSync("dataFiles/windrow.csv", record + "\n");
-    } catch{
-        console.log("could not write file");
+        var foundW = 0;
+        var file = readFile("windrow.csv").split('\n');
+        //console.log(file);
+      /*  for (var i = 1; i<file.length;i++){
+          var lineData = file[i].split(',');
+          console.log(lineData);
+          if (lineData[0]==windrowNumber){
+            foundW++;
+            var total = parseInt(manure)+parseInt(overs)+parseInt(food)+parseInt(chipped);
+            if (start == true){
+              file[i] = ",,,,g,,,,g,g";
+              //linedata[2] = date;
+            }
+            else if (end == true){
+              linedata[3] = date;
+            }
+            else if (tempM>=131 && temp2>=131){
+              console.log("in");
+              linedata[1] = date;
+            }
+            linedata[4]= linedata[4]+turnW;
+            linedata[5] = linedata[5]+waterW;
+            linedata[6] = linedata[6]+decontaminateW;
+            linedata[7] = linedata[7]+food;
+            linedata[8] = linedata[8]+manure;
+            linedata[9] = linedata[9]+chipped;
+            linedata[10] = linedata[10]+overs;
+            linedata[11] = linedata[11]+total;
+            linedata[12] = linedata[12]+total;
+            break;
+          }
+        }*/
+        if (foundW == 0){
+          var total = parseInt(manure)+parseInt(overs)+parseInt(food)+parseInt(chipped);
+          if (start == true){
+            var line = "\n" + windrowNumber +",," + date+ ",," + turnW+ ","
+            +waterW+ "," +decontaminateW+ "," +food+","+manure+ ","+chipped+"," +overs+ "," +total+ "," +total;
+          }
+          else if (end == true){
+            var line = "\n" + windrowNumber +",,," + date+ "," + turnW+ ","
+            +waterW+ "," +decontaminateW+ "," +food+","+manure+ ","+chipped+"," +overs+ "," +total+ "," +total;
+          }
+          else {
+            var line = "\n" + windrowNumber +",,,," + turnW+ ","
+             +waterW+ "," +decontaminateW+ "," +food+","+manure+ ","+chipped+"," +overs+ "," +total+ "," +total;
+          }
+          console.log(line);
+          appendLine(line);
+      }
+    } catch {
+        console.log("could not write windrow.csv file");
         res.sendStatus(500);
         return;
     }
     console.log("Write success");
     res.sendStatus(200);
 });
+
 /**
  * Creates the standardized error return
  * @param {res object for sending message to client} res
@@ -205,5 +264,44 @@ function returnError(res, code, message) {
     res.status(code).end();
     return;
 }
+
+//processes a request for windrow info
+console.log('web service started');
+app.get('/', function (req, res) {
+	res.header("Access-Control-Allow-Origin", "*");
+  try {
+      var file = readFile("windrow.csv");
+      var json = {};
+      var allArr = [];
+      var lines = file.split('\n');
+      console.log(lines);
+      for (var i = 1; i < lines.length; i++) {
+        console.log(lines[i]);
+        var line = {};
+        line["name"] = lines[i].split(',')[0];
+        line["activeD"] = lines[i].split(',')[1];
+        line["startD"] = lines[i].split(',')[2];
+        line["endD"] = lines[i].split(',')[3];
+        line["turn"] = lines[i].split(',')[4];
+        line["water"] = lines[i].split(',')[5];
+        line["decon"] = lines[i].split(',')[6];
+        line["food"] = lines[i].split(',')[7];
+        line["manure"] = lines[i].split(',')[8];
+        line["chipped"] = lines[i].split(',')[9];
+        line["overs"] = lines[i].split(',')[10];
+        line["totalS"] = lines[i].split(',')[11];
+        line["totalF"] = lines[i].split(',')[12];
+        allArr.push(line);
+      }
+      json["windrows"] = allArr;
+      res.json(json);
+  } catch {
+    console.log("could not read windrow.csv file");
+    res.sendStatus(400);
+    return;
+  }
+});
+
 console.log("Service running");
-app.listen(expressPort);
+//app.listen(expressPort);
+app.listen(3000);

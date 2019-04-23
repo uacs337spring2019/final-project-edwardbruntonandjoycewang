@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<!-- Compost Cats Input Farm Shift Form -->
+<!--Edward Brunton-->
+<!--Joyce Wang-->
+<!--CSC 337 001-->
+<!-- Compost Cats input form for windrow information. Contains button to
+submit form to windrow.csv and button to view summary info. -->
 <html>
 
   <head>
@@ -14,13 +18,11 @@
       <img src="cclogo.png" alt="compost cats logo" />
       <hr>
     </header>
+    <h1>Windrow Log</h1>
     <div class="formSection">
-      <h1>Farm Shift Log</h1>
       <div><label>Date:</label> <input id="date" type="date"></div>
       <div><label>Name:</label><input id="name" type="text"></div>
     </div>
-    <!-- windrow attributes indicated with W
-      FIXME: Add another windrow button should add another set of windrow form fields-->
     <h2>Windrows</h2>
     <div class="windrowForm">
       <div class="formSection">
@@ -50,9 +52,24 @@
         <div><label>Temperature South:</label><input id="tempS" type="text"></div>
       </div>
     </div>
-    <button id="addW">Add another windrow</button>
+    <button id="addW">Add windrow</button>
     <div id="error"></div>
+    <div id = "viewAll">
+      <button id="summary">View Data</button>
+    </div>
     <!--
+    <div id = "allinfo">
+      <div id="current">
+        <h2>Operations</h2>
+        <div id = "curr1">
+        <h3> Windrows </h3>
+      </div>
+      <div id = "curr2">
+        <h3> Completed Windrows</h3>
+      </div>
+      </div>
+    </div>
+
     <div class="curingPiles">
       <h2>Curing Piles</h2>
       <div class="formSection">
@@ -97,7 +114,6 @@
           id="dContaminate"></div>
     </div>
     <button id="addD">Add another dump</button>
-
     <h2>Equipment Used (Hours)</h2>
     <div class="formSection">
       <div><label>Challenger:</label><input id="challenger" type="text"></div>
@@ -110,7 +126,6 @@
   -->
    <!-- <h2>Comments or Concerns?</h2>
     <input id="comments" type="text">
-
     <button>Submit</button>-->
   </body>
 </html>

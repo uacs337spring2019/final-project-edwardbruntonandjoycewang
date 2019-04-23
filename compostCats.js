@@ -2,6 +2,9 @@
 Edward Brunton
 Joyce Wang
 CSC 337 001
+
+Processes the login page's buttons to create accounts and verify login info.
+Once logged in, the user can access the web form page. 
 */
 "use strict";
 (function () {

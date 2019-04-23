@@ -6,22 +6,18 @@ CSC 337 001
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    padding: 0.1em;
 }
 
 input[type=button], button {
     background-color: #4CAF50;
     color: white;
-    font-size: 20pt;
 }
 
 input {
     padding: 1em;
     margin: 1em;
 }
-.formSection input, input[type=button], button{
-    padding: 0.5em;
-}
+
 #loginDiv, #success {
     max-width: 30em;
     margin-left: auto;

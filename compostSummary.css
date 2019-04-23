@@ -1,0 +1,64 @@
+/*
+Edward Brunton
+Joyce Wang
+CSC 337 001
+
+Theme for Compost Cats Data Overview Page, compostsummary.html
+*/
+
+body{
+  background-color:#EADDBA;
+  font-family: Palatino, serif;
+}
+
+h1 {
+  font-family: Serif;
+	font-size: 3em;
+	text-align: center;
+  vertical-align: middle;
+}
+
+h2 {
+  font-size: 30pt;
+}
+
+h3 {
+  color: DarkGreen;
+  font-size: 17pt;
+  text-align: center;
+}
+
+p {
+  font-style: italic;
+  text-align: center;
+}
+
+#logo {
+  background-color: DarkGreen;
+}
+
+#header {
+  margin-top:13%;
+}
+
+#current {
+  background-color: #FADD8C;
+  border-color: #FADD8C;
+  border-style: solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 20px;
+  padding-top: none;
+}
+
+#cols {
+  display: flex;
+  flex-direction: row;
+}
+
+#curr2, #curr1 {
+  border-style: solid;
+  margin: 15px;
+  padding: 20px;
+}
