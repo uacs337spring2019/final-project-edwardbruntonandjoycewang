@@ -245,7 +245,8 @@ app.post('/windrow', jsonParser, function (req, res) {
           console.log(line);
           appendLine(line);
       }
-    } catch {
+    } catch(err){
+        console.log(err);
         console.log("could not write windrow.csv file");
         res.sendStatus(500);
         return;
