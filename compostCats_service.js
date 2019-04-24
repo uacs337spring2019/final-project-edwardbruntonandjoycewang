@@ -14,7 +14,6 @@ let fs = require('fs');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const bcrypt = require("bcrypt");
-app.use(express.static('public'));
 /**
  * Allows cross origin calls
  */
@@ -24,7 +23,7 @@ app.use(function (req, res, next) {
         "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
+//allows access to public folder
 app.use(express.static('public'));
 
 /* Register a new user */
