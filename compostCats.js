@@ -23,18 +23,27 @@ Once logged in, the user can access the web form page.
         document.getElementById("newAccountFieldSet").style.display = 'none';
         console.log("loaded");
     };
+    /**
+     * Switches to the new account div
+     */
     function switchToNewAccount() {
         clearError();
         console.log("Switch to new account");
         document.getElementById("existingAccountFieldSet").style.display = 'none';
         document.getElementById("newAccountFieldSet").style.display = 'block';
     }
+    /**
+     * Switches to the existing account div
+     */
     function switchToExistingAccount() {
         clearError();
         console.log("Switch to existing account");
         document.getElementById("existingAccountFieldSet").style.display = 'block';
         document.getElementById("newAccountFieldSet").style.display = 'none';
     }
+    /**
+     * Logs a user in
+     */
     function login() {
         let password = document.getElementById("loginPassword").value;
         let email = document.getElementById("loginEmail").value;
@@ -72,10 +81,16 @@ Once logged in, the user can access the web form page.
         }
         console.log("Login button click");
     }
+    /**
+     * Clears the errors from the error div
+     */
     function clearError() {
         console.log("clearing error");
         document.getElementById("error").innerHTML = "";
     }
+    /**
+     * Checks if the error div is empty
+     */
     function emptyError() {
         console.log(document.getElementById("error").innerHTML);
         if (document.getElementById("error").innerHTML === "") {
@@ -83,6 +98,10 @@ Once logged in, the user can access the web form page.
         }
         return false;
     }
+    /**
+     * Adds an error message to the error div
+     * @param {an error message} error 
+     */
     function addError(error) {
         console.log("creating error");
         let errorDiv = document.createElement("div");

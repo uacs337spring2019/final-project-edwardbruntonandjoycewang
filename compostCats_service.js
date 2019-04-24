@@ -45,9 +45,6 @@ app.post('/register', jsonParser, function (req, res, next) {
         console.log("missing part of body");
         return returnError(res, 406, "Missing required field");
     }
-    //TODO fill this in
-    // bcrypt.hash(password, "someSalt?", null, function (err, hash) {
-    // Prepare a new user
     console.log("beginning bcrypt");
     try {
         bcrypt.genSalt(10, function (err, salt) {
@@ -102,7 +99,9 @@ app.post('/login', jsonParser, function (req, res, next) {
         return returnError(res, 500, "Bcrypt comparison issue");
     }
 });
-
+/**
+ * Returns a list of users
+ */
 function getUsers() {
     let lines = readFile("users.txt");
     console.log(lines);
@@ -155,6 +154,9 @@ function appendLine(line){
   });
 }
 
+/**
+ * Endpoint for posting a window detail
+ */
 app.post('/windrow', jsonParser, function (req, res) {
     console.log("posting");
     //  console.log(req);
@@ -303,5 +305,4 @@ app.get('/', function (req, res) {
 });
 
 console.log("Service running");
-//app.listen(expressPort);
-app.listen(3000);
+app.listen(expressPort);
