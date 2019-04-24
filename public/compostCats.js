@@ -8,6 +8,7 @@ Once logged in, the user can access the web form page.
 */
 "use strict";
 (function () {
+    let urlStem = "https://edwardbruntonandjoycewang.herokuapp.com/"
     /**
      * Enables the click buttons after the html loads
      */
@@ -58,7 +59,7 @@ Once logged in, the user can access the web form page.
             validItems = false;
         }
         if (validItems) {
-            let url = "http://localhost:3000/login";
+            let url = urlStem + "login";
             const message = {
                 "email": email,
                 "password": password
@@ -150,7 +151,7 @@ Once logged in, the user can access the web form page.
             validItems = false;
         }
         if (validItems) {
-            let url = "http://localhost:3000/register";// need to change 3000 to process.env.PORT
+            let url = urlStem + "register";
        // let url = "/register";// need to change 3000 to process.env.PORT
         const message = {
                 "email": email,

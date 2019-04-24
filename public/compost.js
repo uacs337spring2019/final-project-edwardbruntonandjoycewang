@@ -11,6 +11,8 @@ and a POST request to windrow.csv. Processes click to display compostSummary.htm
     /**
      * Enables the click buttons after the html loads
      */
+    let urlStem = "https://edwardbruntonandjoycewang.herokuapp.com/"
+
     window.onload = function () {
         document.getElementById("addW").onclick = submitWindrow;
         document.getElementById("viewAll").onclick = displayInfo;
@@ -81,7 +83,7 @@ and a POST request to windrow.csv. Processes click to display compostSummary.htm
             addError("Temperature South must be a valid number");
         }
         if (document.getElementById("error").innerHTML == "") {
-            let url = "http://localhost:3000/windrow";
+            let url =urlStem + "/windrow";
             //"http://localhost:3000/windrow";// need to change 3000 to process.env.PORT
             const message = {
                 "date": date,
