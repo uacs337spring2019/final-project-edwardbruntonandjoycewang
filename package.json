@@ -1,0 +1,25 @@
+{
+  "name": "bruntonwang",
+  "version": "1.0.0",
+  "description": "Final project for Edward Brunton and Joyce Wang",
+  "main": "compostCats_service.js",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uacs337spring2019/final-project-edwardbruntonandjoycewang.git"
+  },
+  "author": "Edward Brunton Joyce Wang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uacs337spring2019/final-project-edwardbruntonandjoycewang/issues"
+  },
+  "homepage": "https://github.com/uacs337spring2019/final-project-edwardbruntonandjoycewang#readme"
+}
