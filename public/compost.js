@@ -83,7 +83,7 @@ and a POST request to windrow.csv. Processes click to display compostSummary.htm
             addError("Temperature South must be a valid number");
         }
         if (document.getElementById("error").innerHTML == "") {
-            let url =urlStem + "/windrow";
+            let url =urlStem + "windrow";
             //"http://localhost:3000/windrow";// need to change 3000 to process.env.PORT
             const message = {
                 "date": date,
