@@ -9,12 +9,12 @@ Processes GET and POST requests to read and write to windrow.csv.
 "use strict";
 const express = require("express");
 const app = express();
-const expressPort = 3000;//to work on horoku, change to: process.env.PORT
+const expressPort = process.env.PORT;
 let fs = require('fs');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 const bcrypt = require("bcrypt");
-
+app.use(express.static('public'));
 /**
  * Allows cross origin calls
  */
