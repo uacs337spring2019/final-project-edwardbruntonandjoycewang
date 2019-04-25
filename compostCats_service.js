@@ -256,7 +256,7 @@ function returnError(res, code, message) {
 
 //processes a request for windrow info
 console.log('web service started');
-app.get('/', function (req, res) {
+app.get('/windrowGet', function (req, res) {
     console.log("get command received");
     try {
         console.log("trying to read files");

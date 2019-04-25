@@ -13,7 +13,8 @@ Gets data from a GET request to display all windrow information on the summary p
    */
   let urlStem = "https://edwardbruntonandjoycewang.herokuapp.com";
   window.onload = function () {
-    let url = urlStem + "?mode=windrow";
+    let url = urlStem + "/windrowGet";
+    clearError();
     fetch(url)
       .then(checkStatus)
       .then(function (responseText) {
@@ -96,5 +97,20 @@ Gets data from a GET request to display all windrow information on the summary p
       addError(response.statusText);
       console.log("error added to gui");
     }
+  }
+      /**
+     * Clears the errors from the error div
+     */
+    function clearError() {
+      document.getElementById("error").innerHTML = "";
+  }
+    /**
+     * Adds an error message to the error div
+     * @param {an error message} error 
+     */
+    function addError(error) {
+      let errorDiv = document.createElement("div");
+      errorDiv.innerHTML = error;
+      document.getElementById("error").appendChild(errorDiv);
   }
 })();
