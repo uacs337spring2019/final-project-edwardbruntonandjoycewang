@@ -6,9 +6,10 @@ CSC 337 001
 Processes the login page's buttons to create accounts and verify login info.
 Once logged in, the user can access the web form page. 
 */
-"use strict";
+
 (function () {
-    let urlStem = "https://edwardbruntonandjoycewang.herokuapp.com/"
+    "use strict";
+    let urlStem = "https://edwardbruntonandjoycewang.herokuapp.com/";
     /**
      * Enables the click buttons after the html loads
      */
@@ -16,7 +17,7 @@ Once logged in, the user can access the web form page.
         document.querySelector("#success button").onclick = function () {
             document.getElementById("success").style.display = 'none';
             switchToExistingAccount();
-        }
+        };
         document.getElementById("login").onclick = login;
         document.getElementById("createNewAccount").onclick = newAccount;
         document.getElementById("newAccount").onclick = switchToNewAccount;
@@ -68,9 +69,10 @@ Once logged in, the user can access the web form page.
             };
             fetch(url, fetchOptions)
                 .then(checkStatus)
-                .then(function (responseText) {
-                    if(document.getElementById("error").innerHTML == "")
+                .then(function () {
+                    if (document.getElementById("error").innerHTML == ""){
                         window.location.href = "ccwebform.html";
+                    }
                 })
                 .catch(function (response) {
                     addError("Detailed trace error:");
@@ -86,6 +88,7 @@ Once logged in, the user can access the web form page.
     }
     /**
      * Checks if the error div is empty
+     * @returns {a true false value of if the div is empty}
      */
     function emptyError() {
         if (document.getElementById("error").innerHTML === "") {
@@ -102,6 +105,9 @@ Once logged in, the user can access the web form page.
         errorDiv.innerHTML = error;
         document.getElementById("error").appendChild(errorDiv);
     }
+    /**
+     * Creates a new account from user input
+     */
     function newAccount() {
         clearError();
         let password = document.getElementById("passwordAccount").value;
@@ -125,7 +131,6 @@ Once logged in, the user can access the web form page.
             addError("Password must not have a space");
             validItems = false;
         }
-        let a = parseInt(password, 10);
         if (!/\d/.test(password)) {
             addError("Password must contain a number");
             validItems = false;
@@ -141,8 +146,7 @@ Once logged in, the user can access the web form page.
         }
         if (validItems) {
             let url = urlStem + "register";
-       // let url = "/register";// need to change 3000 to process.env.PORT
-        const message = {
+            const message = {
                 "email": email,
                 "fullName": name,
                 "password": password
@@ -154,12 +158,9 @@ Once logged in, the user can access the web form page.
             };
             fetch(url, fetchOptions)
                 .then(checkStatus)
-                .then(function (responseText) {
+                .then(function () {
                     if (emptyError()) {
-                        console.log("no error");
                         document.getElementById("success").style.display = "block";
-                    } else {
-                        console.log("existing errors");
                     }
                 })
                 .catch(function (response) {
@@ -169,9 +170,8 @@ Once logged in, the user can access the web form page.
         }
     }
     /**
-     *Checks the status of a response and returns the text or the error code
-     *Parameters:
-        *Response: server response that contains status and text
+     * checks the status of the response from the server
+     * @param {response is the server response} response 
      */
     function checkStatus(response) {
         const lowEndValid = 200;
