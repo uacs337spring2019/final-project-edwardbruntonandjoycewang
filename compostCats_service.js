@@ -257,9 +257,12 @@ function returnError(res, code, message) {
 //processes a request for windrow info
 console.log('web service started');
 app.get('/', function (req, res) {
-    res.header("Access-Control-Allow-Origin", "*");
+    console.log("get command received");
     try {
+        console.log("trying to read files");
         let file = readFile("windrow.csv");
+        console.log("file read. lines:");
+        console.log(file);
         let json = {};
         let allArr = [];
         let lines = file.split('\n');
