@@ -5,8 +5,9 @@ CSC 337 001
 
 Gets data from a GET request to display all windrow information on the summary page.
 */
-"use strict";
+
 (function () {
+  "use strict";
   /**
    * Requests all windrow info from the server.
    * Processes and displays on summary page.
@@ -43,25 +44,22 @@ Gets data from a GET request to display all windrow information on the summary p
           else {
             water = windrow[i].water;
           }
-          care.innerHTML = "Turned " + turn + " times, watered " +
-            water + " times"
+          care.innerHTML = "Turned " + turn + " times, watered " + water + " times";
           //current windrows
           if (windrow[i].endD == "") {
             document.getElementById("curr1").appendChild(w);
             document.getElementById("curr1").appendChild(sd);
             document.getElementById("curr1").appendChild(vol);
+            let stage = document.createElement("p");
             if (windrow[i].activeD == "") {
-              let stage = document.createElement("p");
               stage.innerHTML = "Stage: Pre-Active";
             }
             else {
-              let stage = document.createElement("p");
               stage.innerHTML = "Stage: Active since " + windrow[i].activeD;
               stage.style.color = "red";
             }
             document.getElementById("curr1").appendChild(stage);
             document.getElementById("curr1").appendChild(care);
-
           }
           //completed windrow
           else {
@@ -75,7 +73,7 @@ Gets data from a GET request to display all windrow information on the summary p
           }
         }
       });
-  }
+  };
   /**
 *Checks the status of a response and returns the text or the error code
 *Parameters:
@@ -84,33 +82,27 @@ Gets data from a GET request to display all windrow information on the summary p
   function checkStatus(response) {
     const lowEndValid = 200;
     const highEndValid = 300;
-    console.log(response.status);
-    console.log(response);
     if (response.status >= lowEndValid && response.status < highEndValid) {
       return response.text();
     }
     else {
-      console.log("unacceptable return");
       clearError();
-      console.log(response);
-      console.log("error cleared");
       addError(response.statusText);
-      console.log("error added to gui");
     }
   }
-      /**
-     * Clears the errors from the error div
-     */
-    function clearError() {
-      document.getElementById("error").innerHTML = "";
+  /**
+ * Clears the errors from the error div
+ */
+  function clearError() {
+    document.getElementById("error").innerHTML = "";
   }
-    /**
-     * Adds an error message to the error div
-     * @param {an error message} error 
-     */
-    function addError(error) {
-      let errorDiv = document.createElement("div");
-      errorDiv.innerHTML = error;
-      document.getElementById("error").appendChild(errorDiv);
+  /**
+   * Adds an error message to the error div
+   * @param {an error message} error 
+   */
+  function addError(error) {
+    let errorDiv = document.createElement("div");
+    errorDiv.innerHTML = error;
+    document.getElementById("error").appendChild(errorDiv);
   }
 })();

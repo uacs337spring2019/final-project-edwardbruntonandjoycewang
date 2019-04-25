@@ -6,18 +6,18 @@ CSC 337 001
 Processes the buttons for the web form, ccwebform.html. Submits windrow information
 and a POST request to windrow.csv. Processes click to display compostSummary.html
 */
-"use strict";
 (function () {
+"use strict";
+
     /**
      * Enables the click buttons after the html loads
      */
-    let urlStem = "https://edwardbruntonandjoycewang.herokuapp.com/"
+    let urlStem = "https://edwardbruntonandjoycewang.herokuapp.com/";
 
     window.onload = function () {
         document.getElementById("addW").onclick = submitWindrow;
         document.getElementById("viewAll").onclick = displayInfo;
-        console.log("loaded next page");
-    }
+    };
 
     /**
     * Displays the summary page on click.
@@ -105,9 +105,8 @@ and a POST request to windrow.csv. Processes click to display compostSummary.htm
             };
             fetch(url, fetchOptions)
                 .then(checkStatus)
-                .then(function (responseText) {
+                .then(function () {
                     if (emptyError()) {
-                        console.log("successful post");
                         document.getElementById("nameW").value = "";
                         document.getElementById("startW").checked = false;
                         document.getElementById("finishW").checked = false;
@@ -122,8 +121,6 @@ and a POST request to windrow.csv. Processes click to display compostSummary.htm
                         document.getElementById("tempS").value = "";
                         addError("Successful submission!");
                         document.getElementById("viewAll").display = "block";
-                    } else {
-                        console.log("existing errors");
                     }
                 })
                 .catch(function (response) {

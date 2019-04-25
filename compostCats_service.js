@@ -29,32 +29,24 @@ app.use(express.static('public'));
 /* Register a new user */
 app.post('/register', jsonParser, function (req, res, next) {
     // Create a hash for the submitted password
-    console.log("Register request received");
-    console.log(req.body);
     const email = req.body.email;
     let users = getUsers();
     const name = req.body.fullName;
     const password = req.body.password;
-    console.log("parsed body");
     if (users.hasOwnProperty(email)) {
-        console.log("user already exists");
         return returnError(res, 409, "User already exists");
     }
     if (name === undefined || password === undefined || email === undefined) {
-        console.log("missing part of body");
         return returnError(res, 406, "Missing required field");
     }
-    console.log("beginning bcrypt");
     try {
         bcrypt.genSalt(10, function (err, salt) {
             bcrypt.hash(password, salt, function (err, hash) {
-                console.log("Password successfully hashed");
                 try {
                     fs.appendFileSync("users.txt", "\n" + name + ":::" + hash + ":::" + email);
-                    console.log("created successfully");
                     res.sendStatus(201);
                     return;
-                } catch{
+                } catch(e){
                     return returnError(res, 500, "Could not write file");
                 }
             });
@@ -71,57 +63,46 @@ app.post('/login', jsonParser, function (req, res, next) {
     const email = req.body.email;
     let users = getUsers();
     const password = req.body.password;
-    console.log("parsed body");
     if (!users.hasOwnProperty(email)) {
-        console.log("user does not exist");
         return returnError(res, 403, "Bad login credentials");
     }
     if (password === undefined || email === undefined) {
-        console.log("missing part of body");
         return returnError(res, 406, "Missing required field");
     }
-    console.log("beginning bcrypt");
     try {
-
         bcrypt.compare(password, users[email].password, function (err, valid) {
             if (err) {
                 return returnError(res, 500, "Bcrypt comparison issue");
             } if (valid) {
-                console.log("Valid password");
                 res.send(200);
             } else {
-                console.log("bad password");
                 return returnError(res, 403, "Bad login credentials");
             }
-        })
+        });
     } catch (e) {
         return returnError(res, 500, "Bcrypt comparison issue");
     }
 });
 /**
  * Returns a list of users
+ * @returns {a list of users} users
  */
 function getUsers() {
     let lines = readFile("users.txt");
-    console.log(lines);
     if (lines === 0) {
-        console.log("bad file");
         return {};
     }
     let linesInList = lines.split(/\r?\n/);
     let users = {};
     for (let i = 0; i < linesInList.length; i++) {
         let parts = linesInList[i].split(":::");
-        console.log(parts);
         users[parts[2]] =
             {
                 "name": parts[0],
                 "email": parts[2],
                 "password": parts[1]
             };
-        //  console.log(users);
     }
-    console.log("finished creating users");
     return users;
 }
 /**
@@ -141,8 +122,8 @@ function readFile(fileName) {
 
 
 /**
-This function adds the line to the file windrow.csv
-@param line a string to append to the file
+* This function adds the line to the file windrow.csv
+* @param {a string to append to the file} line
 */
 function appendLine(line) {
     fs.appendFile("windrow.csv", line, function (err) {
@@ -157,8 +138,6 @@ function appendLine(line) {
  * Endpoint for posting a window detail
  */
 app.post('/windrow', jsonParser, function (req, res) {
-    console.log("posting");
-    //  console.log(req);
     const windrowNumber = req.body.windrowNumber;
     const start = req.body.startW;
     const end = req.body.finishW;
@@ -172,7 +151,6 @@ app.post('/windrow', jsonParser, function (req, res) {
     const tempM = req.body.tempM;
     const tempS = req.body.tempS;
     const date = req.body.date;
-    //  console.log(type);
     if (date == undefined || start === undefined || end === undefined ||
         turnW === undefined || waterW === undefined ||
         decontaminateW === undefined || manure === undefined ||
@@ -183,62 +161,31 @@ app.post('/windrow', jsonParser, function (req, res) {
     }
     try {
         let foundW = 0;
-        let file = readFile("windrow.csv").split('\n');
-        //console.log(file);
-        /*  for (let i = 1; i<file.length;i++){
-            let lineData = file[i].split(',');
-            console.log(lineData);
-            if (lineData[0]==windrowNumber){
-              foundW++;
-              let total = parseInt(manure)+parseInt(overs)+parseInt(food)+parseInt(chipped);
-              if (start == true){
-                file[i] = ",,,,g,,,,g,g";
-                //linedata[2] = date;
-              }
-              else if (end == true){
-                linedata[3] = date;
-              }
-              else if (tempM>=131 && temp2>=131){
-                console.log("in");
-                linedata[1] = date;
-              }
-              linedata[4]= linedata[4]+turnW;
-              linedata[5] = linedata[5]+waterW;
-              linedata[6] = linedata[6]+decontaminateW;
-              linedata[7] = linedata[7]+food;
-              linedata[8] = linedata[8]+manure;
-              linedata[9] = linedata[9]+chipped;
-              linedata[10] = linedata[10]+overs;
-              linedata[11] = linedata[11]+total;
-              linedata[12] = linedata[12]+total;
-              break;
-            }
-          }*/
         if (foundW == 0) {
             let line = "";
             let total = parseInt(manure) + parseInt(overs) + parseInt(food) + parseInt(chipped);
             if (start === true) {
                 line = "\n" + windrowNumber + ",," + date + ",," + turnW + ","
-                    + waterW + "," + decontaminateW + "," + food + "," + manure + "," + chipped + "," + overs + "," + total + "," + total;
+                    + waterW + "," + decontaminateW + "," + food + "," + manure +
+                    "," + chipped + "," + overs + "," + total + "," + total;
             }
             else if (end === true) {
                 line = "\n" + windrowNumber + ",,," + date + "," + turnW + ","
-                    + waterW + "," + decontaminateW + "," + food + "," + manure + "," + chipped + "," + overs + "," + total + "," + total;
+                    + waterW + "," + decontaminateW + "," + food + "," + manure + "," +
+                     chipped + "," + overs + "," + total + "," + total;
             }
             else {
                 line = "\n" + windrowNumber + ",,,," + turnW + ","
-                    + waterW + "," + decontaminateW + "," + food + "," + manure + "," + chipped + "," + overs + "," + total + "," + total;
+                    + waterW + "," + decontaminateW + "," + food + "," + manure + "," + chipped +
+                    "," + overs + "," + total + "," + total;
             }
             console.log(line);
             appendLine(line);
         }
     } catch (err) {
-        console.log(err);
-        console.log("could not write windrow.csv file");
         res.sendStatus(500);
         return;
     }
-    console.log("Write success");
     res.sendStatus(200);
 });
 
@@ -257,18 +204,12 @@ function returnError(res, code, message) {
 //processes a request for windrow info
 console.log('web service started');
 app.get('/windrowGet', function (req, res) {
-    console.log("get command received");
     try {
-        console.log("trying to read files");
         let file = readFile("windrow.csv");
-        console.log("file read. lines:");
-        console.log(file);
         let json = {};
         let allArr = [];
         let lines = file.split('\n');
-        console.log(lines);
         for (let i = 1; i < lines.length; i++) {
-            console.log(lines[i]);
             let line = {};
             line["name"] = lines[i].split(',')[0];
             line["activeD"] = lines[i].split(',')[1];
@@ -286,10 +227,8 @@ app.get('/windrowGet', function (req, res) {
             allArr.push(line);
         }
         json["windrows"] = allArr;
-        console.log(json);
         res.json(json);
-    } catch {
-        console.log("could not read windrow.csv file");
+    } catch (e){
         res.sendStatus(400);
         return;
     }
