@@ -22,14 +22,12 @@ Once logged in, the user can access the web form page.
         document.getElementById("newAccount").onclick = switchToNewAccount;
         document.getElementById("existingAccount").onclick = switchToExistingAccount;
         document.getElementById("newAccountFieldSet").style.display = 'none';
-        console.log("loaded");
     };
     /**
      * Switches to the new account div
      */
     function switchToNewAccount() {
         clearError();
-        console.log("Switch to new account");
         document.getElementById("existingAccountFieldSet").style.display = 'none';
         document.getElementById("newAccountFieldSet").style.display = 'block';
     }
@@ -38,7 +36,6 @@ Once logged in, the user can access the web form page.
      */
     function switchToExistingAccount() {
         clearError();
-        console.log("Switch to existing account");
         document.getElementById("existingAccountFieldSet").style.display = 'block';
         document.getElementById("newAccountFieldSet").style.display = 'none';
     }
@@ -80,20 +77,17 @@ Once logged in, the user can access the web form page.
                     addError(response);
                 });
         }
-        console.log("Login button click");
     }
     /**
      * Clears the errors from the error div
      */
     function clearError() {
-        console.log("clearing error");
         document.getElementById("error").innerHTML = "";
     }
     /**
      * Checks if the error div is empty
      */
     function emptyError() {
-        console.log(document.getElementById("error").innerHTML);
         if (document.getElementById("error").innerHTML === "") {
             return true;
         }
@@ -104,13 +98,9 @@ Once logged in, the user can access the web form page.
      * @param {an error message} error 
      */
     function addError(error) {
-        console.log("creating error");
         let errorDiv = document.createElement("div");
         errorDiv.innerHTML = error;
-        console.log("error:");
-        console.log(error);
         document.getElementById("error").appendChild(errorDiv);
-        console.log("error div created");
     }
     function newAccount() {
         clearError();
@@ -136,7 +126,6 @@ Once logged in, the user can access the web form page.
             validItems = false;
         }
         let a = parseInt(password, 10);
-        console.log(a);
         if (!/\d/.test(password)) {
             addError("Password must contain a number");
             validItems = false;
@@ -187,17 +176,12 @@ Once logged in, the user can access the web form page.
     function checkStatus(response) {
         const lowEndValid = 200;
         const highEndValid = 300;
-        console.log(response.status);
-        console.log(response);
         if (response.status >= lowEndValid && response.status < highEndValid) {
             return response.text();
         }
         else {
-            console.log("unacceptable return");
             clearError();
-            console.log("error cleared");
             addError(response.statusText);
-            console.log("error added to gui");
         }
     }
 })();

@@ -40,7 +40,6 @@ and a POST request to windrow.csv. Processes click to display compostSummary.htm
         let waterW = 0;
         let decontaminateW = 0;
         if (document.getElementById("turnW").checked == "TRUE") {
-            console.log("out");
             turnW = 1;
         }
         else {
@@ -84,7 +83,6 @@ and a POST request to windrow.csv. Processes click to display compostSummary.htm
         }
         if (document.getElementById("error").innerHTML == "") {
             let url =urlStem + "windrow";
-            //"http://localhost:3000/windrow";// need to change 3000 to process.env.PORT
             const message = {
                 "date": date,
                 "windrowNumber": windrowNumber,

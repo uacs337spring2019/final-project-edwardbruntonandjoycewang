@@ -11,7 +11,7 @@ Gets data from a GET request to display all windrow information on the summary p
    * Requests all windrow info from the server.
    * Processes and displays on summary page.
    */
-  let urlStem = "https://edwardbruntonandjoycewang.herokuapp.com/"
+  let urlStem = "https://edwardbruntonandjoycewang.herokuapp.com";
 
   window.onload = function (){
 		let url = urlStem + "?mode=windrow";
