@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <!--Edward Brunton-->
 <!--Joyce Wang-->
 <!--CSC 337 001-->
 <!-- Compost Cats input form for windrow information. Contains button to
 submit form to windrow.csv and button to view summary info. -->
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
   <head>
     <title>CompostCats</title>
@@ -48,84 +48,15 @@ submit form to windrow.csv and button to view summary info. -->
             type="text" placeholder="Volume in cubic yards"></div>
       </div>
       <div class="formSection">
-        <div><label>Temperature Middle:</label><input id="tempM" pattern="\d" type="text"></div>
+        <div><label>Temperature Middle:</label><input id="tempM" pattern="\d"
+            type="text"></div>
         <div><label>Temperature South:</label><input id="tempS" type="text"></div>
       </div>
     </div>
     <button id="addW">Add windrow</button>
     <div id="error"></div>
-    <div id = "viewAll">
+    <div id="viewAll">
       <button id="summary">View Data</button>
     </div>
-    <!--
-    <div id = "allinfo">
-      <div id="current">
-        <h2>Operations</h2>
-        <div id = "curr1">
-        <h3> Windrows </h3>
-      </div>
-      <div id = "curr2">
-        <h3> Completed Windrows</h3>
-      </div>
-      </div>
-    </div>
-
-    <div class="curingPiles">
-      <h2>Curing Piles</h2>
-      <div class="formSection">
-        <input id="nameCP" type="text" placeholder="Curing Pile Number">
-        <div><label>Started today?</label><input type="checkbox" id="startC"></div>
-        <div><label>Finished today?</label><input type="checkbox" id="finishC"></div>
-        <div><label>Amount Added:</label><input id="addC" type="text"
-            placeholder="Volume in cubic yards"></div>
-        <div><label>Amount Sifted:</label><input id="subtractC" type="text"
-            placeholder="Volume in cubic yards"></div>
-      </div>
-    </div>
-    <button id="addCP">Add another curing pile</button>
-    <h2>Overs</h2>
-    <div><label>Amount Added:</label><input id="addO" type="text"
-        placeholder="Volume in cubic yards"></div>
-    <div><label>Amount Used (for purposes other than windrow additions):</label><input
-        id="subtractO" type="text" placeholder="Volume in cubic yards"></div>
-    <h2>Finished Compost</h2>
-    <div><label>Amount Added:</label><input id="addBulk" type="text"
-        placeholder="Volume in cubic yards"></div>
-    <div><label>Amount Sold as Bulk Compost:</label><input id="bulkSold"
-        type="text" placeholder="Volume in cubic yards"></div>
-    <h2>Compost Bagged</h2>
-    <div><label>Bags Made:</label><input id="bagsC" type="text"></div>
-    <div><label>Pallets Made:</label><input id="palletsC" type="text"></div>
-    <h2>Food Dumps</h2>
-    <div class="formSection">
-      <div><label>Source:</label><input id="sourceD" type="text"></div>
-      <div><label>Weight:</label></div>
-      <input id="weightD" type="text">
-      <div><label>Contamination level (1 = no contamination, 5 = heavily
-          contaminated)</label></div>
-      <select id="contaminateLevel">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-      </select>
-      <div><label>Decontaminated?</label><input type="checkbox"
-          id="dContaminate"></div>
-    </div>
-    <button id="addD">Add another dump</button>
-    <h2>Equipment Used (Hours)</h2>
-    <div class="formSection">
-      <div><label>Challenger:</label><input id="challenger" type="text"></div>
-      <div><label>Big Loader:</label><input id="bigLoader" type="text"></div>
-      <div><label>Backhoe:</label><input id="backhoe" type="text"></div>
-      <div><label>Water Truck:</label><input id="waterTruck" type="text"></div>
-      <div><label>Sifter:</label><input id="sifter" type="text"></div>
-      <div><label>Turner:</label><input id="turner" type="text"></div>
-    </div>
-  -->
-   <!-- <h2>Comments or Concerns?</h2>
-    <input id="comments" type="text">
-    <button>Submit</button>-->
   </body>
 </html>
