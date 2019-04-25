@@ -296,6 +296,7 @@ app.get('/', function (req, res) {
         allArr.push(line);
       }
       json["windrows"] = allArr;
+      console.log(json);
       res.json(json);
   } catch {
     console.log("could not read windrow.csv file");
